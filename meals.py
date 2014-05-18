@@ -28,6 +28,7 @@ def init_db():
     """Creates the database tables."""
     with app.app_context():
         db = get_db()
+        print 'get db'
         with app.open_resource('schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
@@ -53,7 +54,7 @@ def close_db(error):
 def show_entries():
     db = get_db()
     cur = db.execute(
-        'select id, title, description from meal_entries where active=1 order by id desc')
+        'select id, title, description, price from meal_entries where active=1 order by id desc')
     meals = cur.fetchall()
     return render_template('show_meals.html', meals=meals)
 

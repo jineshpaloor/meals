@@ -11,11 +11,13 @@
         <tr>
           <th>Meal Title</th>
           <th>Description</th>
+          <th>Price</th>
         </tr>
         {% for meal in meals %}
           <tr>
             <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
             <td>{{ meal.description|safe|truncate(50, True) }}</td>
+            <td>{{ meal.price }}</td>
           </tr>
         {% endfor %}
       </table>
