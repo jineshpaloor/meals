@@ -16,38 +16,6 @@
             <dd><input type=submit value=Save id="id_submit">
           </dl>
         </form>
-
-        <script type="text/javascript">
-        $(document).ready(function(){
-          $("#id_submit").click(function(){
-            console.log("click");
-            title = $("#id_title").val();
-            description = $("#id_description").val();
-            price = $("#id_price").val();
-            active= $("#id_active").is(':checked')
-            // if (!active){
-            //     $("#id_active").val("0");
-            // }
-            if (!title){
-                $("#title_error").show();
-                return false;
-            }
-            else{
-                $("#title_error").hide();
-            }
-            if (!description){
-                $("#description_error").show();
-                return false;
-            }
-            else{
-                $("#description_error").hide();
-            }
-            
-
-            return true;
-          });
-        });
-        </script>
     {% endblock body %}
 
     

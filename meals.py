@@ -117,12 +117,15 @@ def save_meals():
 @app.route('/edit_meals/<int:meal_id>', methods=['POST', 'GET'])
 def edit_meals(meal_id):
     print '*'*100
-    print 'reached edit meals '
-    print request.__dict__.keys()
-    title = request.form['title'].strip()
-    description = request.form['description'].strip()
-    active = request.form['active'].strip()
-    price = request.form['price'].strip()
+    print 'args is :', request.args
+    dic =  request.__dict__
+    for i in dic.keys():
+        print '*'*100
+        print dic[i]
+    #title = request.form['title'].strip()
+    #description = request.form['description'].strip()
+    #active = request.form['active'].strip()
+    #price = request.form['price'].strip()
 
     db = get_db()
     db.execute(

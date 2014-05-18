@@ -35,24 +35,4 @@
   </li>
   </ol>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(".active_0").hide();
-      $(".toggle_menu").click(function(){
-        $(".menu_item").hide();
-        active_value = $(this).val();
-        $(".active_"+active_value).show();
-        if (active_value == "1"){
-          $(".active_text").text("active");
-        }
-        else{
-          $(".active_text").text("inactive");
-        }
-        console.log($(".active_text").text());
-      });
-      console.log("yes");
-    });
-  </script>
-
 {% endblock body %}
