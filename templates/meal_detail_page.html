@@ -2,6 +2,7 @@
 	{% block body %}
 		<h1>{{meal.title}}</h1>
 		Description:<h2 class='add-entry'>{{meal.description}}</h2>
+		Price:<h2 class='add-entry'>{{meal.price}}</h2>
 		<ul>
 			<a href="{{ url_for('show_entries')}}">Back</a>
 		</ul>

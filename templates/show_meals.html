@@ -12,12 +12,17 @@
           <th>Meal Title</th>
           <th>Description</th>
           <th>Price</th>
+          <th></th>
         </tr>
         {% for meal in meals %}
           <tr>
             <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
             <td>{{ meal.description|safe|truncate(50, True) }}</td>
             <td>{{ meal.price }}</td>
+            <td><a class="edit-meals" href="#edit">Edit</a></td>
+          </tr>
+          <tr class="hidden">
+              <td colspan="4">{% include "meal_edit_page.html" %}
           </tr>
         {% endfor %}
       </table>

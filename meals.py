@@ -64,7 +64,7 @@ def meal_detail_page(meal_id):
     # query the meal and show
     db = get_db()
     cur = db.execute(
-        'select title, description from meal_entries where active=1 and id=' + str(meal_id) + ' order by id desc')
+        'select title, description, price from meal_entries where active=1 and id=' + str(meal_id) + ' order by id desc')
     meal = cur.fetchone()
 
     if not meal:
@@ -74,6 +74,21 @@ def meal_detail_page(meal_id):
     return render_template('meal_detail_page.html', meal=meal)
 
 
+@app.route('/meal_edit_page/<int:meal_id>')
+def meal_edit_page(meal_id):
+    # query the meal and show
+    db = get_db()
+    cur = db.execute(
+        'select title, description, price from meal_entries where active=1 and id=' + str(meal_id) + ' order by id desc')
+    meal = cur.fetchone()
+
+    if not meal:
+        flash('You don\'t have permission to do that')
+        return redirect(url_for('show_entries'))
+
+    return render_template('meal_edit_page.html', meal=meal)
+
+
 @app.route('/add_meals_page')
 def add_meals_page():
     return render_template('add_meals.html')
@@ -81,6 +96,12 @@ def add_meals_page():
 
 @app.route('/save_meals', methods=['POST'])
 def save_meals():
+    flash('Error: Code to save meals is not implemented!')
+    return redirect(url_for('show_entries'))
+
+
+@app.route('/edit_meals', methods=['POST'])
+def edit_meals():
     flash('Error: Code to save meals is not implemented!')
     return redirect(url_for('show_entries'))
 
