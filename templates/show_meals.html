@@ -19,9 +19,9 @@
             <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
             <td>{{ meal.description|safe|truncate(50, True) }}</td>
             <td>{{ meal.price }}</td>
-            <td><a class="edit-meals" href="#edit">Edit</a></td>
+            <td><input type="button" data-val="{{ meal.id }}" class="edit-meals" value="Edit"></td>
           </tr>
-          <tr class="hidden">
+          <tr class="hidden" id="meal-{{ meal.id }}">
               <td colspan="4">{% include "meal_edit_page.html" %}
           </tr>
         {% endfor %}

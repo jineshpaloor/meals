@@ -4,6 +4,7 @@ import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, g, redirect, url_for, \
     render_template, flash
+from flask import jsonify
 
 
 # create our little application :)
@@ -100,10 +101,19 @@ def save_meals():
     return redirect(url_for('show_entries'))
 
 
-@app.route('/edit_meals', methods=['POST'])
-def edit_meals():
-    flash('Error: Code to save meals is not implemented!')
-    return redirect(url_for('show_entries'))
+@app.route('/edit_meals/<int:meal_id>', methods=['POST'])
+def edit_meals(meal_id):
+    db = get_db()
+    title = request.form['title'].strip()
+    description = request.form['description'].strip()
+    active = request.form['active'].strip()
+    price = request.form['price'].strip()
+
+    db.execute(
+        'UPDATE meal_entries SET title={0}, description={1}, active={2}, price={3} WHERE id={4}'.format(title, description, active, price, meal_id))
+    db.commit()
+
+    return jsonify({'success':True})
 
 
 if __name__ == '__main__':
