@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h1>Welcome to Meals App</h1>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  <ol class=entries>
+  <h2>Your available active meals are:</h2>
+  {% if meals %}
+      <table style="width:300px">
+        <tr>
+          <th>Meal Title</th>
+          <th>Description</th>
+        </tr>
+        {% for meal in meals %}
+          <tr>
+            <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
+            <td>{{ meal.description|safe }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+  {% else %}
+      <em>Unbelievable.  No active meals here so far</em>
+  {% endif %}
+  <li>
+    <a href="{{ url_for('add_meals_page')}}">Add meals</a>
+  </li>
+  </ol>
+{% endblock body %}
