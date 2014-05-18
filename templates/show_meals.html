@@ -7,7 +7,7 @@
   <ol class=entries>
   <h2>Your available active meals are:</h2>
   {% if meals %}
-      <table style="width:300px">
+      <table style="width:550px">
         <tr>
           <th>Meal Title</th>
           <th>Description</th>
@@ -15,7 +15,7 @@
         {% for meal in meals %}
           <tr>
             <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
-            <td>{{ meal.description|safe }}</td>
+            <td>{{ meal.description|safe|truncate(50, True) }}</td>
           </tr>
         {% endfor %}
       </table>
