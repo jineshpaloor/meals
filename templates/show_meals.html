@@ -4,8 +4,9 @@
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
   {% endfor %}
+  <input type="radio" class="toggle_menu" name="is_active" value="1">Show Active  <input type="radio" class="toggle_menu" name="is_active" value="0">Show Inactive
   <ol class=entries>
-  <h2>Your available active meals are:</h2>
+  <h2>Your available <span class="active_text">active</span> meals are:</h2>
   {% if meals %}
       <table style="width:550px">
         <tr>
@@ -15,7 +16,7 @@
           <th></th>
         </tr>
         {% for meal in meals %}
-          <tr>
+          <tr class="menu_item active_{{ meal.active }}">
             <td><a href="{{ url_for('meal_detail_page', meal_id=meal.id)}}">{{ meal.title }}</a></td>
             <td>{{ meal.description|safe|truncate(50, True) }}</td>
             <td>{{ meal.price }}</td>
@@ -33,4 +34,25 @@
     <a href="{{ url_for('add_meals_page')}}">Add meals</a>
   </li>
   </ol>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".active_0").hide();
+      $(".toggle_menu").click(function(){
+        $(".menu_item").hide();
+        active_value = $(this).val();
+        $(".active_"+active_value).show();
+        if (active_value == "1"){
+          $(".active_text").text("active");
+        }
+        else{
+          $(".active_text").text("inactive");
+        }
+        console.log($(".active_text").text());
+      });
+      console.log("yes");
+    });
+  </script>
+
 {% endblock body %}

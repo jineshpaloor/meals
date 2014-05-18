@@ -55,7 +55,7 @@ def close_db(error):
 def show_entries():
     db = get_db()
     cur = db.execute(
-        'select id, title, description, price from meal_entries where active=1 order by id desc')
+        'select id, title, description, active, price from meal_entries  order by id desc')
     meals = cur.fetchall()
     return render_template('show_meals.html', meals=meals)
 
@@ -97,18 +97,34 @@ def add_meals_page():
 
 @app.route('/save_meals', methods=['POST'])
 def save_meals():
-    flash('Error: Code to save meals is not implemented!')
+    title = request.form['title'].strip()
+    description = request.form['description'].strip()
+    price = request.form['price'].strip()
+    active = request.form.getlist('active')
+    if active:
+        active_value = "1"
+    else:
+        active_value = "0"
+    db = get_db()
+    db.execute(
+        'insert into meal_entries (title, description, active,price) values (?, ?, ?, ?  )',[title,description,active_value,float(price)]
+    )
+    db.commit()
+    flash('New menu item is added successfully')
     return redirect(url_for('show_entries'))
 
 
-@app.route('/edit_meals/<int:meal_id>', methods=['POST'])
+@app.route('/edit_meals/<int:meal_id>', methods=['POST', 'GET'])
 def edit_meals(meal_id):
-    db = get_db()
+    print '*'*100
+    print 'reached edit meals '
+    print request.__dict__.keys()
     title = request.form['title'].strip()
     description = request.form['description'].strip()
     active = request.form['active'].strip()
     price = request.form['price'].strip()
 
+    db = get_db()
     db.execute(
         'UPDATE meal_entries SET title={0}, description={1}, active={2}, price={3} WHERE id={4}'.format(title, description, active, price, meal_id))
     db.commit()
